@@ -6,7 +6,7 @@ This tool generates the CTM overlays for planks next to other types of planks.
 - [Pillow](https://pypi.org/project/Pillow/)
 
 ## How to use
-1. Place the regular plank textures in `in/planks`.
-2. Place the middle plank CTM textures in `in/ctm`. These are the textures that don't have the borders on the sides.
-2. Run `py run.py` in this folder.
-3. The output ends up in the `out` folder.
+1. Replace the files in `in/planks` with planks from the `block` folder.
+2. Replace the files in `in/ctm` with the center horizontal CTM texture (`1.png`) from the `optifine/ctm/planks` folders with one for each type of wood.
+3. Run `py run.py` in this folder.
+4. The output ends up in the `out` folder.

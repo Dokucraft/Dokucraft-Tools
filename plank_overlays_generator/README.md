@@ -2,10 +2,11 @@
 This tool generates the CTM overlays for planks next to other types of planks.
 
 ## Requirements
-- ImageMagick 6 (or newer) must be installed to run this.
-- Since the tool is a Batch file, this will only run on Windows machines.
+- [Python 3.10+](https://www.python.org/)
+- [Pillow](https://pypi.org/project/Pillow/)
 
 ## How to use
-1. Replace the files in the `a` and `b` folders with one for each type of wood.
-2. Start `run.bat` and wait for it to finish.
+1. Place the regular plank textures in `in/planks`.
+2. Place the middle plank CTM textures in `in/ctm`. These are the textures that don't have the borders on the sides.
+2. Run `py run.py` in this folder.
 3. The output ends up in the `out` folder.

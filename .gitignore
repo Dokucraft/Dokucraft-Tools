@@ -1,3 +1,6 @@
 **/node_modules
 
 plank_overlays_generator/out
+
+container_generator/build_env/*
+container_generator/*.bat

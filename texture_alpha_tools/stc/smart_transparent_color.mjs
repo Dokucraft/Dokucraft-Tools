@@ -2,13 +2,15 @@ import sharp from 'sharp'
 
 const { data: inpx, info } = await sharp(process.argv[2]).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
 
+const ALPHA_THRESHOLD = 127
+
 // Find the edge pixels in the input image
 const scpx = Buffer.alloc(info.width*info.height*5)
 let scpxCount = 0
 for (let i = 0; i < inpx.length; i += 4) {
   const x = (i / 4) % info.width
   const y = Math.floor(i / 4 / info.width)
-  if (inpx[i+3] > 127 && ((x < info.width - 1 && inpx[i+4+3] <= 127) || (x > 0 && inpx[i-4+3] <= 127) || (y < info.height - 1 && inpx[i+info.width*4+3] <= 127) || (y > 0 && inpx[i-info.width*4+3] <= 127))) {
+  if (inpx[i+3] > ALPHA_THRESHOLD && ((x < info.width - 1 && inpx[i+4+3] <= ALPHA_THRESHOLD) || (x > 0 && inpx[i-4+3] <= ALPHA_THRESHOLD) || (y < info.height - 1 && inpx[i+info.width*4+3] <= ALPHA_THRESHOLD) || (y > 0 && inpx[i-info.width*4+3] <= ALPHA_THRESHOLD))) {
     const si = scpxCount * 5
     scpx[si] = x
     scpx[si+1] = y
@@ -25,7 +27,7 @@ for (let x = 0; x < info.width; x++) for (let y = 0; y < info.height; y++) {
   const i = x + y * info.width
 
   // If this pixel is not transparent in the input image, just use that color
-  if (inpx[i*4+3] > 127) {
+  if (inpx[i*4+3] > ALPHA_THRESHOLD) {
     inpx.copy(btpx, i*4, i*4, i*4+4)
     continue
   }

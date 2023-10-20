@@ -5,8 +5,9 @@ This is a set of tools used to help maintain the Dokucraft resource packs. Some 
 | Tool | Description |
 |-|-|
 | [Container Generator](container_generator/README.md) | A tool for generating container GUI textures. |
-| [Plank overlays generator](plank_overlays_generator/README.md) | Generates CTM overlays for planks next to other types of planks. |
-| [Texture alpha tools](texture_alpha_tools/README.md) | A set of simple tools for manipulating the alpha channel of textures. |
+| [Optifine to Fusion Convertor](optifine_to_fusion/README.md) | A tool that converts Optifine CTM to Fusion CTM. |
+| [Plank Overlays Generator](plank_overlays_generator/README.md) | Generates CTM overlays for planks next to other types of planks. |
+| [Texture Alpha Tools](texture_alpha_tools/README.md) | A set of simple tools for manipulating the alpha channel of textures. |
 
 ## External tools
 This repo is for tools specifically made to help maintain the Dokucraft packs, but a lot of other, more generic tools are also used for this. This is a list of tools we recommend:

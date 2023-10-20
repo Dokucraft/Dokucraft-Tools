@@ -520,9 +520,9 @@ def createBasicModel(blockName, folderName):
         method = ctmPropertiesFileContents[v].split('method=')[1].strip()
         return method
 
-  if len(ctmPropertiesFileContents[0].split('matchTiles=')) != 0:
+  if len(ctmPropertiesFileContents[0].split('matchTiles=')) != 1:
     connectedBlocks = ctmPropertiesFileContents[0].split('matchTiles=')[1]
-  elif len(ctmPropertiesFileContents[0].split('matchBlocks=')) != 0:
+  elif len(ctmPropertiesFileContents[0].split('matchBlocks=')) != 1:
     connectedBlocks = ctmPropertiesFileContents[0].split('matchBlocks=')[1]
 
   f = open('out/models/block/' + connectedBlocks.split(' ')[0].strip() + ".json", "w")
@@ -536,7 +536,7 @@ def createBasicModel(blockName, folderName):
   def getConnectionType(isOnlyBlock, connectionTypeSet):
     for w in range(0, len(ctmPropertiesFileContents)):
       if len(ctmPropertiesFileContents[w].split('connect=')) > 1:
-        if ctmPropertiesFileContents[w].split('connect=')[1] == 'tile' or ctmPropertiesFileContents[0].split('connect=')[1] == 'block':
+        if ctmPropertiesFileContents[w].split('connect=')[1].strip() == 'tile' or ctmPropertiesFileContents[0].split('connect=')[1].strip() == 'block':
           if isOnlyBlock is False and connectionTypeSet is False:
             f.write('		{ "type": "is_same_block" },\n')
             return True

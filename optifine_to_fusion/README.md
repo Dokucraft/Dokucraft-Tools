@@ -1,6 +1,6 @@
 # Container Generator
 A tool that converts Optifine CTM to Fusion CTM.
-Currently only Supports `ctm_compact` with tiles `0-4` and `ctm` with tiles `0-46`
+Currently only Supports `ctm_compact` with tiles `0-4`, `ctm` with tiles `0-46`, and `overlay` with tiles `0-16`
 
 ## How to use Script
 

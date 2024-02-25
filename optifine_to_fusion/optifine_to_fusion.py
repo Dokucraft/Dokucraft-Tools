@@ -1,6 +1,6 @@
 from PIL import Image
 from os import path
-import os, shutil
+import os, shutil, json
 
 fileDir = os.getcwd()
 fileDir = fileDir.replace('\\', '/')
@@ -491,40 +491,102 @@ def convertFullCTM(blockName, folderName):
 
   tempTextureOutput.save(fileDir + 'out/textures/block/ctm/' + blockName + '/' + folderName + '.png')
 
-def createMCMeta(blockName, folderName):
-  if path.exists('out/textures/block/ctm/' + blockName) != 1:
-    os.mkdir('out/textures/block/ctm/' + blockName)
+def convertOverlayCTM(blockName, folderName):
+  tempTextureOutputLayer1 = Image.new('RGBA', (128, 128), (255, 255, 255, 0))
+  tempTextureOutputLayer2 = Image.new('RGBA', (128, 128), (255, 255, 255, 0))
+
+  ctmImg0 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/0.png').convert('RGBA')
+  ctmImg1 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/1.png').convert('RGBA')
+  ctmImg2 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/2.png').convert('RGBA')
+  ctmImg3 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/3.png').convert('RGBA')
+  ctmImg4 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/4.png').convert('RGBA')
+  ctmImg5 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/5.png').convert('RGBA')
+  ctmImg6 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/6.png').convert('RGBA')
+  ctmImg7 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/7.png').convert('RGBA')
+  ctmImg8 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/8.png').convert('RGBA')
+  ctmImg9 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/9.png').convert('RGBA')
+  ctmImg10 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/10.png').convert('RGBA')
+  ctmImg11 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/11.png').convert('RGBA')
+  ctmImg12 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/12.png').convert('RGBA')
+  ctmImg13 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/13.png').convert('RGBA')
+  ctmImg14 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/14.png').convert('RGBA')
+  ctmImg15 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/15.png').convert('RGBA')
+  ctmImg16 = Image.open(fileDir + 'in/' + blockName + '/' + folderName + '/16.png').convert('RGBA')
+
+  # 0, 0 
+  # tempTextureOutputLayer1.paste(ctmImg8, (0, 0))
+  # 0, 1
+  tempTextureOutputLayer1.paste(ctmImg7, (0, 32))
+  tempTextureOutputLayer2.paste(ctmImg9, (0, 32))
+  # 0, 2
+  tempTextureOutputLayer1.paste(ctmImg12, (0, 64))
+  # 0, 3
+  tempTextureOutputLayer1.paste(ctmImg13, (0, 96))
+  # 1, 0
+  tempTextureOutputLayer1.paste(ctmImg8, (32, 0))
+  # 1, 1
+  tempTextureOutputLayer1.paste(ctmImg1, (32, 32))
+  tempTextureOutputLayer2.paste(ctmImg15, (32, 32))
+  # 1, 2
+  tempTextureOutputLayer1.paste(ctmImg5, (32, 64))
+  # 1, 3
+  tempTextureOutputLayer1.paste(ctmImg6, (32, 96))
+  # 2, 0
+  tempTextureOutputLayer1.paste(ctmImg1, (64, 0))
+  # 2, 1
+  tempTextureOutputLayer1.paste(ctmImg7, (64, 32))
+  # 2, 2
+  tempTextureOutputLayer1.paste(ctmImg3, (64, 64))
+  # 2, 3
+  tempTextureOutputLayer1.paste(ctmImg10, (64, 96))
+  # 3, 0
+  tempTextureOutputLayer1.paste(ctmImg9, (96, 0))
+  # 3, 1
+  tempTextureOutputLayer1.paste(ctmImg15, (96, 32))
+  # 3, 2
+  tempTextureOutputLayer1.paste(ctmImg4, (96, 64))
+  # 3, 3
+  tempTextureOutputLayer1.paste(ctmImg11, (96, 96))
+
+  tempTextureOutput = Image.new('RGBA', (128, 128), (255, 255, 255, 0))
+
+  tempTextureOutput.paste(tempTextureOutputLayer1, (0, 0), tempTextureOutputLayer1)
+  tempTextureOutput.paste(tempTextureOutputLayer2, (0, 0), tempTextureOutputLayer2)
+
+  ctmImg0.close()
+  ctmImg1.close()
+  ctmImg2.close()
+  ctmImg3.close()
+  ctmImg4.close()
+  ctmImg5.close()
+  ctmImg6.close()
+  ctmImg7.close()
+  ctmImg8.close()
+  ctmImg9.close()
+  ctmImg10.close()
+  ctmImg11.close()
+  ctmImg12.close()
+  ctmImg13.close()
+  ctmImg14.close()
+  ctmImg15.close()
+  ctmImg16.close()
+
+  # print(folderName)
+  # print(blockName)
+  # print(fileDir + 'out/textures/block/ctm/' + blockName + '/' + folderName + '.png')
+
   if folderName == '':
     folderName = blockName
-  f = open('out/textures/block/ctm/' + blockName + '/' + folderName + ".png.mcmeta", "w")
-  f.write('{\n')
-  f.write('	"fusion": {\n')
-  f.write('		"type": "connecting",\n')
-  f.write('		"layout": "full"\n')
-  f.write('	}\n')
-  f.write('}')
-  f.close()
+
+  # print(fileDir + 'out/textures/block/ctm/' + blockName + '/' + folderName + '.png')
+
+  tempTextureOutput.save(fileDir + 'out/textures/block/ctm/' + blockName + '/' + folderName + '.png')
+
+def addToArray(array, item):
+    if item not in array:
+      array.append(item)
 
 def createBasicModel(blockName, folderName):
-  if folderName != '':
-    folderName = folderName + '/'
-  ctmFiles = os.listdir(fileDir + 'in/' + blockName + '/' + folderName)
-  ctmFile = [file for file in ctmFiles if file.split('.')[1] == 'properties']
-  ctmPropertiesFile = open(fileDir + 'in/' + blockName + '/' + folderName + ctmFile[0], "r")
-  ctmPropertiesFileContents = ctmPropertiesFile.readlines()
-  ctmPropertiesFile.close()
-
-  for v in range(0, len(ctmPropertiesFileContents)):
-    if len(ctmPropertiesFileContents[v].split('method=')) != 1:
-      if ctmPropertiesFileContents[v].split('method=')[1].strip() != 'ctm_compact' and ctmPropertiesFileContents[v].split('method=')[1].strip() != 'ctm':
-        method = ctmPropertiesFileContents[v].split('method=')[1].strip()
-        return method
-
-  if len(ctmPropertiesFileContents[0].split('matchTiles=')) != 1:
-    connectedBlocks = ctmPropertiesFileContents[0].split('matchTiles=')[1]
-  elif len(ctmPropertiesFileContents[0].split('matchBlocks=')) != 1:
-    connectedBlocks = ctmPropertiesFileContents[0].split('matchBlocks=')[1]
-
   f = open('out/models/block/' + connectedBlocks.split(' ')[0].strip() + ".json", "w")
   f.write('{\n')
   f.write('	"loader": "fusion:model",\n')
@@ -536,7 +598,7 @@ def createBasicModel(blockName, folderName):
   def getConnectionType(isOnlyBlock, connectionTypeSet):
     for w in range(0, len(ctmPropertiesFileContents)):
       if len(ctmPropertiesFileContents[w].split('connect=')) > 1:
-        if ctmPropertiesFileContents[w].split('connect=')[1].strip() == 'tile' or ctmPropertiesFileContents[0].split('connect=')[1].strip() == 'block':
+        if ctmPropertiesFileContents[w].split('connect=')[1].strip() == 'tile' or ctmPropertiesFileContents[w].split('connect=')[1].strip() == 'block':
           if isOnlyBlock is False and connectionTypeSet is False:
             f.write('		{ "type": "is_same_block" },\n')
             return True
@@ -571,13 +633,158 @@ def createBasicModel(blockName, folderName):
   f.write('}\n')
   f.close()
 
-  for u in range(0, len(ctmPropertiesFileContents)):
-    if len(ctmPropertiesFileContents[u].split('method=')) != 1:
-      method = ctmPropertiesFileContents[u].split('method=')[1].strip()
-      return method
+  print('Generated' + method + 'CTM for ' + connectedBlocks.split(' ')[o].strip())
 
-ctmBlockFolders = os.listdir(fileDir + 'in/')
+def createBasicOverlayModels(blockName, folderName):
+  print('')
+  # for o in range(0, len(connectedBlocks.split(' '))):
+  # f = open('out/models/block/' + connectedBlocks.split(' ')[o].strip() + ".json", "w+")
+  # f.write('{\n')
+  # f.write(' "loader": "fusion:model",\n')
+  # f.write(' "type": "connecting",\n')
+  # f.write(' "parent": "block/block",\n')
+  # f.write(' "textures": {\n')
+  # f.write('   "particle": "#all",\n')
+  # f.write('   "all": "block/'+ blockName +'",\n')
+  # for l in range(0, len(blockArray)):
+  #   f.write('   "'+ blockArray[l] +'_overlay": "block/ctm/'+ blockArray[l] +'/'+ blockArray[l] +'_overlay",\n')
+  # f.write('   "'+ blockName +'_overlay": "block/ctm/'+ blockName +'/'+ blockName +'_overlay"\n')
+  # f.write(' },\n')
+  # f.write(' "connections": {\n')
+  # for l in range(0, len(blockArray)):
+  #   f.write('   "'+ blockArray[l] +'_overlay": [\n')
+  #   f.write('     { "type": "match_block", "block": "'+ blockArray[l] +'" }\n')
+  #   f.write('   ],\n')
+  # f.write('   "'+ blockName +'_overlay": [\n')
+  # f.write('     { "type": "match_block", "block": "'+ blockName +'" }\n')
+  # f.write('   ]\n')
+  # f.write(' },\n')
+  # f.write(' "elements": [\n')
+  # f.write('   {\n')
+  # f.write('     "from": [ 0, 0, 0 ],\n')
+  # f.write('     "to": [ 16, 16, 16 ],\n')
+  # f.write('     "faces": {\n')
+  # f.write('       "down": { "texture": "#all", "cullface": "down" },\n')
+  # f.write('       "up": { "texture": "#all", "cullface": "up" },\n')
+  # f.write('       "north": { "texture": "#all", "cullface": "north" },\n')
+  # f.write('       "south": { "texture": "#all", "cullface": "south" },\n')
+  # f.write('       "west": { "texture": "#all", "cullface": "west" },\n')
+  # f.write('       "east": { "texture": "#all", "cullface": "east" }\n')
+  # f.write('     }\n')
+  # f.write('   },\n')
+  # for l in range(0, len(blockArray)):
+  #   f.write('   {\n')
+  #   f.write('     "from": [ 0, 0, 0 ],\n')
+  #   f.write('     "to": [ 16, 16, 16 ],\n')
+  #   f.write('     "faces": {\n')
+  #   f.write('       "down": { "texture": "#'+ blockArray[l] +'_overlay", "cullface": "down" },\n')
+  #   f.write('       "up": { "texture": "#'+ blockArray[l] +'_overlay", "cullface": "up" },\n')
+  #   f.write('       "north": { "texture": "#'+ blockArray[l] +'_overlay", "cullface": "north" },\n')
+  #   f.write('       "south": { "texture": "#'+ blockArray[l] +'_overlay", "cullface": "south" },\n')
+  #   f.write('       "west": { "texture": "#'+ blockArray[l] +'_overlay", "cullface": "west" },\n')
+  #   f.write('       "east": { "texture": "#'+ blockArray[l] +'_overlay", "cullface": "east" }\n')
+  #   f.write('     }\n')
+  #   f.write('   },\n')
+  # f.write('   {\n')
+  # f.write('     "from": [ 0, 0, 0 ],\n')
+  # f.write('     "to": [ 16, 16, 16 ],\n')
+  # f.write('     "faces": {\n')
+  # f.write('       "down": { "texture": "#'+ blockName +'_overlay", "cullface": "down" },\n')
+  # f.write('       "up": { "texture": "#'+ blockName +'_overlay", "cullface": "up" },\n')
+  # f.write('       "north": { "texture": "#'+ blockName +'_overlay", "cullface": "north" },\n')
+  # f.write('       "south": { "texture": "#'+ blockName +'_overlay", "cullface": "south" },\n')
+  # f.write('       "west": { "texture": "#'+ blockName +'_overlay", "cullface": "west" },\n')
+  # f.write('       "east": { "texture": "#'+ blockName +'_overlay", "cullface": "east" }\n')
+  # f.write('     }\n')
+  # f.write('   }\n')
+  # f.write(' ]\n')
+  # f.write('}')
+  # f.close()
 
+  # print('Generated Overlay CTM for ' + blockName + ' onto ' + connectedBlocks.split(' ')[o].strip())
+
+def createMCMeta(blockName, folderName, CTMFormat):
+  # Create CTM Folder inside of the `block` folder if it doesn't exist
+  if path.exists('out/textures/block/ctm/' + blockName) != 1:
+    os.mkdir('out/textures/block/ctm/' + blockName)
+
+  if folderName == '':
+    folderName = blockName
+  
+  f = open('out/textures/block/ctm/' + blockName + '/' + folderName + ".png.mcmeta", "w")
+  
+  # Check CTM Format and generate the MCMeta accordingly
+  if CTMFormat == 'ctm_compact' or CTMFormat == 'ctm':
+    f.write('{\n')
+    f.write('	"fusion": {\n')
+    f.write('		"type": "connecting",\n')
+    f.write('		"layout": "full"\n')
+    f.write('	}\n')
+    f.write('}')
+    f.close()
+  elif CTMFormat == 'overlay':
+    f.write('{\n')
+    f.write(' "fusion": {\n')
+    f.write('   "type": "connecting",\n')
+    f.write('   "layout": "simple",\n')
+    f.write('   "render_type": "cutout"\n')
+    f.write(' }\n')
+    f.write('}')
+    f.close()
+  else:
+    print('Unknown CTM Format: ' + CTMFormat)
+
+def fetchPropertiesFileInfo(blockName, folderName, returnInfo):
+  if folderName != '':
+    folderName = folderName + '/'
+
+  # Load Properites File
+  ctmFiles = os.listdir(fileDir + 'in/' + blockName + '/' + folderName)
+  ctmPropertiesFiles = [file for file in ctmFiles if file.split('.')[1] == 'properties']
+  ctmPropertiesFile = open(fileDir + 'in/' + blockName + '/' + folderName + ctmPropertiesFiles[0], "r")
+  ctmPropertiesFileContents = ctmPropertiesFile.readlines()
+  ctmPropertiesFile.close()
+  
+  if returnInfo == 'blockOverlays':
+    if len(ctmPropertiesFileContents[0].split('matchBlocks=')) != 1:
+      matchedBlocks = ctmPropertiesFileContents[0].split('matchBlocks=')[1]
+      return matchedBlocks.strip().split(' ')
+  
+  if returnInfo == 'connectedBlocks':
+    if len(ctmPropertiesFileContents[0].split('matchTiles=')) != 1:
+      connectedBlocks = ctmPropertiesFileContents[0].split('matchTiles=')[1]
+    elif len(ctmPropertiesFileContents[0].split('matchBlocks=')) != 1:
+      connectedBlocks = ctmPropertiesFileContents[0].split('matchBlocks=')[1]
+    return connectedBlocks
+  
+  if returnInfo == 'format':
+    for v in range(0, len(ctmPropertiesFileContents)):
+      if len(ctmPropertiesFileContents[v].split('method=')) != 1:
+        # If CTM Format is not CTM, CTM Compact, or Overlay Print an Error and Exit the Function
+        if ctmPropertiesFileContents[v].split('method=')[1].strip() != 'ctm_compact' and ctmPropertiesFileContents[v].split('method=')[1].strip() != 'ctm' and ctmPropertiesFileContents[v].split('method=')[1].strip() != 'overlay':
+          method = ctmPropertiesFileContents[v].split('method=')[1].strip()
+          # Print Error if CTM Format isn't Supported (Either by Fusion or the Script)
+          print('CTM Method: ' + method + ' is not Supported!')
+          return
+        else:
+          return ctmPropertiesFileContents[v].split('method=')[1].strip()
+
+def getFolderName(ctmBlockNames):
+  # Create loop to go through all CTM Folders in 'in'
+  for x in range(0, len(ctmBlockNames)):
+    ctmFolder = os.listdir(fileDir + 'in/' + ctmBlockNames[x] + '/')
+
+    # Create loop to go through all CTM Folders in 'in' and make sure the folder has the textures or properties files
+    for y in range(0, len(ctmFolder)):
+      if len(ctmFolder[y].split('.png')) > 1 or len(ctmFolder[y].split('.properties')) > 1:
+        ctmFolderName = ''
+      else:
+        ctmFolderName = ctmFolder[y]
+    return ctmFolderName
+
+ctmBlockNames = os.listdir(fileDir + 'in/')
+
+# Create Base Output Folders
 os.mkdir('out')
 os.mkdir('out/models')
 os.mkdir('out/models/block')
@@ -585,19 +792,86 @@ os.mkdir('out/textures')
 os.mkdir('out/textures/block')
 os.mkdir('out/textures/block/ctm')
 
-for x in range(0, len(ctmBlockFolders)):
-  ctmFolder = os.listdir(fileDir + 'in/' + ctmBlockFolders[x] + '/')
-  os.mkdir('out/textures/block/ctm/' + ctmBlockFolders[x])
-  for y in range(0, len(ctmFolder)):
-    if len(ctmFolder[y].split('.png')) > 1 or len(ctmFolder[y].split('.properties')) > 1:
-      ctmFolderName = ''
-    else:
-      ctmFolderName = ctmFolder[y]
-    if createBasicModel(ctmBlockFolders[x], ctmFolderName) == 'ctm_compact':
-      convertCompactCTM(ctmBlockFolders[x], ctmFolderName)
-      createMCMeta(ctmBlockFolders[x], ctmFolderName)
-    elif createBasicModel(ctmBlockFolders[x], ctmFolderName) == 'ctm':
-      convertFullCTM(ctmBlockFolders[x], ctmFolderName)
-      createMCMeta(ctmBlockFolders[x], ctmFolderName)
-    else:
-      print('CTM Method: ' + createBasicModel(ctmBlockFolders[x], ctmFolderName) + ' is not Supported!')
+# Arrays to Fetch Overlay Blocks
+blockOverlays = {}
+allMatchBlocks = []
+tempOverlayingBlocks = {}
+tempAllOverlays = {}
+allBlockOverlays = {}
+
+# Create loop to go through all CTM Folders in 'in'
+for x in range(0, len(ctmBlockNames)):
+  ctmFolder = os.listdir(fileDir + 'in/' + ctmBlockNames[x] + '/')
+  
+  ctmFolderName = getFolderName(ctmBlockNames)
+
+    # Get CTM Format and Propeties File
+    CTMFormat = fetchPropertiesFileInfo(ctmBlockNames[x], ctmFolderName, 'format')
+    connectedBlocks = fetchPropertiesFileInfo(ctmBlockNames[x], ctmFolderName, 'connectedBlocks')
+    blockOverlays = fetchPropertiesFileInfo(ctmBlockNames[x], ctmFolderName, 'blockOverlays')
+
+    # Add blockOverlays for All Blocks to allMatchBlocks List
+    for z in range(0, len(blockOverlays)):
+      addToArray(allMatchBlocks, blockOverlays[z])
+
+    # Create Empty Lists in Dictionaries
+    for c in range(0, len(allMatchBlocks)):
+      tempOverlayingBlocks[allMatchBlocks[c]] = []
+      allBlockOverlays[allMatchBlocks[c]] = []
+
+    # Loop through CTM Folder Names, 
+    for p in range(0, len(blockOverlays)):
+
+      if blockOverlays[p] in tempOverlayingBlocks:
+        if ctmBlockNames[x] != blockOverlays[p] and ctmBlockNames[x] not in blockOverlays:
+          addToArray(tempOverlayingBlocks[blockOverlays[p]], ctmBlockNames[x])
+          res = {k: v for k, v in tempOverlayingBlocks.items() if v}
+          # At this point we have added ctmBlockNames[x] to all lists it applies to in allTest and removed empty lists to create res
+
+          f = open('Blocks_' + str(x) + '_.txt', 'w')
+          f.write(str(res))
+          f.close()
+
+os.mkdir('temp')
+# Create loop to go through all CTM Folders in 'in'
+for x in range(0, len(ctmBlockNames)):
+  f = open('temp/Blocks_' + str(x) + '.txt', 'r')
+  tempAllOverlays = json.loads(f.read().replace("'", '"'))
+  f.close()
+
+  # Merge All Overylay Dictionaries
+  for matchBlock in allBlockOverlays:
+    if matchBlock in tempAllOverlays:
+      for block in tempAllOverlays[matchBlock]:
+        addToArray(allBlockOverlays[matchBlock], block)
+
+# f = open('temp/Blocks_Final.txt', 'w')
+# f.write(str(allBlockOverlays))
+# f.close()
+
+if path.exists('temp') == 1:
+    shutil.rmtree('temp')
+
+# Create Fusion CTM Files
+# Create loop to go through all CTM Folders in 'in' and make an output folder in 'out'
+for x in range(0, len(ctmBlockNames)):
+  ctmFolder = os.listdir(fileDir + 'in/' + ctmBlockNames[x] + '/')
+  os.mkdir('out/textures/block/ctm/' + ctmBlockNames[x])
+  
+  ctmFolderName = getFolderName(ctmBlockNames)
+  
+  # Check if CTM Format is Compact
+  if CTMFormat == 'ctm_compact':
+    createBasicModel(ctmBlockNames[x], ctmFolderName, connectedBlocks)
+    convertCompactCTM(ctmBlockNames[x], ctmFolderName)
+    createMCMeta(ctmBlockNames[x], ctmFolderName)
+  # Check if CTM Format is Full
+  elif CTMFormat == 'ctm':
+    createBasicModel(ctmBlockNames[x], ctmFolderName, connectedBlocks)
+    convertFullCTM(ctmBlockNames[x], ctmFolderName)
+    createMCMeta(ctmBlockNames[x], ctmFolderName)
+  # Check if CTM Format is Overlay
+  elif CTMFormat == 'overlay':
+    createBasicOverlayModels(ctmBlockNames[x], ctmFolderName)
+    convertOverlayCTM(ctmBlockNames[x], ctmFolderName)
+    createOverlayMCMeta(ctmBlockNames[x], ctmFolderName)

@@ -4,3 +4,8 @@ plank_overlays_generator/out
 
 container_generator/build_env/*
 container_generator/*.bat
+
+plank_overlays_generator/in_light
+plank_overlays_generator/in_high
+plank_overlays_generator/in_dark
+plank_overlays_generator/in_dwarven
